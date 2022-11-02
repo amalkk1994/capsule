@@ -25,20 +25,21 @@ public class Capsule {
     }
 
     public String volume() {
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        return df.format(PI * radius * radius * ((((double)4/3) * radius + length)));
+        // DecimalFormat df = new DecimalFormat("#.###");
+       // df.setRoundingMode(RoundingMode.HALF_UP);
+        return String.format("%.3f",PI * radius * radius * ((((double)4/3) * radius + length)));
     }
 
     public String surfaceArea() {
-        DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        return df.format(2 * PI * radius * ( (2 * radius) + length) );
+        //DecimalFormat df = new DecimalFormat("#.####");
+       // df.setRoundingMode(RoundingMode.HALF_UP);
+        return String.format("%.4f",(2 * PI * radius * ( (2 * radius) + length) ));
+        //return df.format(2 * PI * radius * ( (2 * radius) + length) );
     }
 
     public String circumference() {
-        DecimalFormat df = new DecimalFormat("#.####");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-        return df.format(2 * PI * radius);
+       // DecimalFormat df = new DecimalFormat("#.####");
+       // df.setRoundingMode(RoundingMode.HALF_UP);
+        return String.format("%.4f",2 * PI * radius);
     }
 }
