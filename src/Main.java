@@ -1,12 +1,34 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!!!");
 
+        Scanner sc = new Scanner(System.in);
+
+       // capsulePgm(sc);
+        costBenefitAnalysis(sc);
+
+
+        sc.close();
+
+    }
+
+    public static void costBenefitAnalysis(Scanner sc) {
+
+        List<Double> infOut = new ArrayList<Double>();
+        infOut.add(10000.00);
+        infOut.add(27000.00);
+        infOut.add(19000.00);
+        Project prj1 = new Project("Mars", 35000.00, 3, 12.00, infOut);
+        System.out.println("Pv 1:" + prj1.getPvFactor().get(1));
+    }
+
+    public static void capsulePgm(Scanner sc) {
         int radius;
         double length;
-        Scanner sc = new Scanner(System.in);
         System.out.println("Enter the value of N:");
         radius = Integer.parseInt(sc.nextLine());
         System.out.println("Enter the value of length:");
@@ -23,7 +45,5 @@ public class Main {
             System.out.format("%16s%16s%16s%16s\n", capsule.getRadius(), capsule.volume(), capsule.surfaceArea(), capsule.circumference());
             curRadius +=6;
         }
-        sc.close();
-
     }
 }
