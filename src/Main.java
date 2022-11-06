@@ -23,7 +23,10 @@ public class Main {
         infOut.add(27000.00);
         infOut.add(19000.00);
         Project prj1 = new Project("Mars", 35000.00, 3, 12.00, infOut);
-        System.out.println("Pv 1:" + prj1.getPvFactor().get(1));
+        System.out.println("total income:" + String.format("%.2f",prj1.getTotIncome()));
+        System.out.println("Future Benefit:" + String.format("%.2f",prj1.getPvFutureBenefit()));
+        System.out.println("Future Cost:"+ String.format("%.2f",prj1.getUpfrontCost()));
+        System.out.println("Net Present Value:"+ String.format("%.2f",prj1.getNetPresentValue()));
     }
 
     public static void capsulePgm(Scanner sc) {

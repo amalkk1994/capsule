@@ -19,45 +19,62 @@ public class Project {
         this.duration = duration;
         this.rate = rate;
         this.inflowOutflow = new ArrayList<Double>(inflowOutflow);
-        this.pvFactor = new ArrayList<Double>(calculatePvFactor());
-        this.amount = new ArrayList<Double>(calculateAmount());
+        this.pvFactor = new ArrayList<Double>();
+        this.amount = new ArrayList<Double>();
+        calculateValues();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getUpfrontCost() {
+        return upfrontCost;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public List<Double> getInflowOutflow() {
+        return inflowOutflow;
+    }
+
+    public List<Double> getAmount() {
+        return amount;
+    }
+
+    public double getTotIncome() {
+        return totIncome;
+    }
+
+    public double getPvFutureBenefit() {
+        return pvFutureBenefit;
+    }
+
+    public double getNetPresentValue() {
+        return netPresentValue;
     }
 
     public List<Double> getPvFactor() {
         return pvFactor;
     }
 
-    private List<Double> calculatePvFactor() {
-        List<Double> pvFactor = new ArrayList<Double>();
-        double pvf;
-
-        for(int i = 0; i < duration; i++) {
-            pvf = (double) 1/Math.pow((1 + (double) rate / 100),(i+1));
-            System.out.println("Pvf:" + pvf);
-            pvFactor.add(pvf);
-        }
-        return pvFactor;
+    private double calculatePvFactor(double rate, double dur) {
+            double pvf;
+            pvf = (double) 1/Math.pow((1 + (double) rate / 100),(dur));
+            return pvf;
     }
 
-    private List<Double> calculateAmount() {
-        // (int duration, List<Double> pvFactor, List<Double> inflowOutflow)
-        List<Double> amount = new ArrayList<Double>();
-        double amt;
-
-        for(int i=0; i<duration; i++) {
-            amt = pvFactor.get(i) * inflowOutflow.get(i);
-            System.out.println("Amount:"+amt);
-            amount.add(amt);
-        }
-        return amount;
-    }
-
-    private double sum(List<Double> values) {
-        double tot=0.0;
-        for(int i = 0; i < duration; i++) {
-            tot+=values.get(i);
-        }
-        return tot;
+    private double calculateAmount(double pvf, double infOut) {
+            double amt;
+            amt = pvf * infOut;
+      //      System.out.println("Amount:"+amt);
+            return amt;
     }
 
     private double calculateNetPresent() {
@@ -65,9 +82,23 @@ public class Project {
     }
 
     private void calculateValues() {
+        double pvf;
+        double tot=0.00;
+        double pfb=0.00;
+        double amt=0.00;
+        System.out.format("%16s%16s%16s%16s\n", "Year","Cash Inflows/OutFlows", "PV Factor", "Amount");
         for (int i = 0; i < duration; i++) {
-
+            pvf = calculatePvFactor(rate,i+1);
+            this.pvFactor.add(pvf);
+            amt = calculateAmount(pvf,inflowOutflow.get(i));
+            this.amount.add(amt);
+            tot+=inflowOutflow.get(i);
+            pfb+=amt;
+            System.out.format("%16s%16s%16s%16s\n", i+1,String.format("%.2f",inflowOutflow.get(i)), String.format("%.4f",pvf), String.format("%.2f",amt));
         }
+        this.totIncome = tot;
+        this.pvFutureBenefit = pfb;
+        this.netPresentValue = this.pvFutureBenefit - this.upfrontCost;
     }
 
 }
