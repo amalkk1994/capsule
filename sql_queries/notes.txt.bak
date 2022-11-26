@@ -1,0 +1,81 @@
+password : root
+
+CREATE TABLE student (
+id INT PRIMARY KEY,
+first_name VARCHAR(100) NOT NULL,
+last_name VARCHAR(100) NOT NULL,
+city_id INT FOREIGN KEY REFERENCES city(id)
+);
+
+
+
+CREATE TABLE employee (
+	id INT PRIMARY KEY,
+	name VARCHAR(50),
+	department VARCHAR(50)	
+);
+
+CREATE TABLE vacation (
+	id INT PRIMARY KEY,
+	year INT,
+	days INT,
+	emp_id INT,
+	FOREIGN KEY (emp_id) REFERENCES employee(id)
+);
+
+
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0001, 2019, 4, 5);
+
+
+INSERT INTO employee (id, name, department) VALUES (00012, "Luke Ye", "Sales");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0001, 2011, 6, 12);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0002, 2013, 2, 12);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0003, 2012, 1, 12);
+
+INSERT INTO employee (id, name, department) VALUES (00013, "Mark Brown", "Marketing");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0004, 2012, 2, 13);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0005, 2012, 5, 13);
+
+INSERT INTO employee (id, name, department) VALUES (00016, "James Tevlin", "Enginering");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0008, 2011, 4, 16);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0009, 2012, 3, 16);
+
+
+INSERT INTO employee (id, name, department) VALUES (00017, "Ross Becker", "HR");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0010, 2012, 1, 17);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0011, 2013, 2, 17);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0012, 2012, 3, 17);
+
+INSERT INTO employee (id, name, department) VALUES (00015, "Mark Brown", "Marketing");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0007, 2014, 2, 15);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (0006, 2013, 8, 15);
+
+INSERT INTO employee (id, name, department) VALUES (00014, "John Smith", "Management");
+INSERT INTO vacation (id, year, days, emp_id) VALUES (13, 2011, 10, 14);
+INSERT INTO vacation (id, year, days, emp_id) VALUES (14, 2011, 3, 14);
+
+
+
+case 2: 
+combine and add up
+
+SELECT job_id,  LPAD( max_salary, 7, '0') ' Max Salary',
+
+ select * from vacation inner join employee on vacation.emp_id=employee.id;
+ 
+
+select emp_id, year, sum(days) from vacation group by emp_id,year;
+
+
+select LPAD(emp_id, 5, 0) as "Employee Id", year, sum(days) from vacation group by emp_id,year;
+
+
+----------------------------
+select LPAD(employee.id,5,0) as "Employee Id", employee.name as "Employee Name", employee.department as "Department", vacation.year as "Year", sum(vacation.days) as "Vacation Days" from vacation inner join employee on vacation.emp_id=employee.id group by emp_id,year order by employee.name,vacation.year;
+
+
+
+select LPAD(employee.id,5,0) as "Employee Id", employee.name as "Employee Name", employee.department as "Department", vacation.year as "Year", sum(vacation.days) as "Vacation Days" from vacation inner join employee on vacation.emp_id=employee.id group by emp_id,year;
+
+
+select LPAD(employee.id,5,0) as "Employee Id", employee.name as "Employee Name", employee.department as "Department", vacation.year as "Year", sum(vacation.days) as "Vacation Days" from vacation inner join employee on vacation.emp_id=employee.id group by emp_id,year order by employee.name,vacation.year;
